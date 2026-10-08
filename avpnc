@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 import shlex
+import time
 import signal
 import subprocess
 import tempfile
@@ -56,11 +57,6 @@ class Handler(BaseHTTPRequestHandler):
         self.send_cors_headers()
         self.end_headers()
 
-    def do_GET(self):
-        self.send_cors_headers()
-        self.end_headers()
-        self.wfile.write(b'OK')
-
     def do_POST(self):
         global credentials
         self.send_cors_headers()
@@ -76,7 +72,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 TCPServer.allow_reuse_address = True
-with TCPServer(('0.0.0.0', 15395), Handler) as httpd:
+with TCPServer(('localhost', 15395), Handler) as httpd:
     webbrowser.open(get_url())
     while credentials is None:
         httpd.handle_request()
