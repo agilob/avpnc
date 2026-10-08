@@ -6,7 +6,6 @@ import argparse
 import json
 import re
 import shlex
-import time
 import signal
 import subprocess
 import tempfile
